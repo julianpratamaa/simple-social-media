@@ -36,13 +36,13 @@ jobs:
       - name: Push Image
         run: docker push $IMAGE_NAME
 
-deploy-social-media:
+  deploy-social-media:
     needs: build-push-image
     runs-on: self-hosted
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
       - name: stop and remove existing container
-        run: docker compose down || true
+        run: docker compose down --rmi all
       - name: start container
         run: docker compose up -d
